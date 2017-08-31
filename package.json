@@ -1,0 +1,25 @@
+{
+  "name": "cpu-timer",
+  "version": "0.0.0",
+  "description": "TODO",
+  "main": "cpu-timer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cpu-timer"
+  ],
+  "author": "talmobi <talmo.christian@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/talmobi/cpu-timer"
+  },
+  "bugs": {
+    "url": "https://github.com/talmobi/cpu-timer/issues",
+    "email": "talmo.christian@gmail.com"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
+
