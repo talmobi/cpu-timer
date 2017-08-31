@@ -130,12 +130,7 @@ function createTimeout ( callback, delay ) {
   var timer = createTimer()
 
   var _timeout = setTimeout( function () {
-    var cpu = {
-      average: timer.average(),
-      usage: timer.usage()
-    }
-
-    return cpu
+    callback( timer.cpu() )
   }, delay )
 
   // return off function
