@@ -4,19 +4,26 @@ var test = require( 'tape' )
 
 test( 'api - timer.create()', function ( t ) {
   t.plan( 4 )
-  t.timeoutAfter( 1000 )
+  t.timeoutAfter( 1500)
 
   var timer = cpuTimer.create()
 
-  var initialUsage = timer.usage()
-  var initialAverage = timer.average()
+  var init = timer.cpu()
+  var initialUsage = init.usage
+  var initialAverage = init.average
 
-  t.ok( initialUsage, 'initial usage OK' )
-  t.ok( initialAverage, 'initial average OK' )
+  // console.log( initialUsage )
+  // console.log( initialAverage )
+
+  t.ok( initialUsage > 0 && initialAverage <= 100, 'initial usage OK' )
+  t.ok( initialAverage > 0 && initialAverage <= 100, 'initial average OK' )
 
   setTimeout( function () {
-    t.ok( timer.usage() < initialUsage, 'usage is lower' )
-    t.ok( timer.average() < initialAverage, 'average is lower' )
+    var cpu = timer.cpu()
+    // console.log( cpu.usage )
+    // console.log( cpu.average )
+    t.ok( cpu.usage > 0 && cpu.usage <= 100, 'usage OK' )
+    t.ok( cpu.average > 0 && cpu.average <= 100, 'average OK' )
   }, 666 )
 })
 

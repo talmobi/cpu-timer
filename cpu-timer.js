@@ -2,18 +2,20 @@ const os = require( 'os' ) // for cpu average
 
 function safeSetInterval ( fn, ms ) {
   var _running = true
+  var _timeout
 
   function wrapper () {
     if ( !_running ) return undefined // stop
     fn()
-    setTimeout( wrapper, ms )
+    _timeout = setTimeout( wrapper, ms )
   }
 
-  setTimeout( wrapper, ms )
+  _timeout = setTimeout( wrapper, ms )
 
   // return off fn
   return function off () {
     _running = false
+    clearTimeout( _timeout )
   }
 }
 
@@ -105,8 +107,8 @@ function createTimer () {
   }
 
   var api = {
-    average: average,
-    usage: usage,
+    // average: average,
+    // usage: usage,
     cpu: both
   }
 
