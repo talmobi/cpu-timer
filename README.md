@@ -35,6 +35,12 @@ var timer = cpuTimer.create( callback, delay ) // returns a timer
 var cpu = timer.cpu() // cpu { usage: 0-100, average: 0-100 }
 ```
 
+# About
+TODO
+
+# How
+TODO
+
 # test
 ```bash
 npm test
