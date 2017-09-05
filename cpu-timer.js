@@ -63,9 +63,9 @@ function createTimer () {
     var usedDiff =  ( avg.used - _lastCpuAverage.used ) + 0.1
 
     var pct = (
-        String( 100 * ( usedDiff / ( usedDiff + idleDiff ) ) )
-	.trim()
-	.slice( 0, 6 )
+      String( 100 * ( usedDiff / ( usedDiff + idleDiff ) ) )
+      .trim()
+      .slice( 0, 6 )
     )
 
     _lastCpuAverage = avg
@@ -85,9 +85,9 @@ function createTimer () {
     var limit = ( delta * 1000 ) + 0.1 // microseconds to milliseconds
 
     var pct = (
-	String( 100 * ( diff / limit ) )
-	.trim()
-	.slice( 0, 6 )
+      String( 100 * ( diff / limit ) )
+      .trim()
+      .slice( 0, 6 )
     )
 
     _lastCpuUsage = cpuUsage
