@@ -22,31 +22,25 @@ function safeSetInterval ( fn, ms ) {
 function getCpuAverage () {
   var cpus = os.cpus()
 
-  var total = 0
+  var used = 0
   var idle = 0
 
   cpus.forEach(function ( cpu ) {
     var times = cpu.times
 
-    var sum = (
-      times.user +
-      times.nice +
-      times.sys +
-      times.idle +
-      times.irq
-    )
-
+    var sum = 0
     for ( type in cpu.times ) {
-      total += cpu.times[ type ]
+      sum += cpu.times[ type ]
     }
 
+    used += sum - times.idle
     idle += times.idle
   })
 
   var data = {
     timestamp: Date.now(),
-    idle: ( idle / cpus.length ),
-    total: ( total / cpus.length )
+    idle: ( idle ),
+    used: ( used )
   }
 
   return data
@@ -65,14 +59,14 @@ function createTimer () {
     var avg = getCpuAverage()
     var now = Date.now()
 
-    var idleDiff = ( avg.idle - _lastCpuAverage.idle )
-    var totalDiff =  ( avg.total / _lastCpuAverage.total )
-    var diff = ( idleDiff / totalDiff )
+    var idleDiff = ( avg.idle - _lastCpuAverage.idle ) + 1
+    var usedDiff =  ( avg.used - _lastCpuAverage.used ) + 0.1
 
-    var delta = ( now - _lastCpuUsageTime )
-    var limit = ( delta ) // milliseconds
-
-    var pct = String( 100 * ( 1 - ( diff / limit ) ) ).trim().slice( 0, 6 )
+    var pct = (
+        String( 100 * ( usedDiff / ( usedDiff + idleDiff ) ) )
+	.trim()
+	.slice( 0, 6 )
+    )
 
     _lastCpuAverage = avg
     _lastCpuAverageTime = now
@@ -85,12 +79,16 @@ function createTimer () {
 
     var prevTotal = ( _lastCpuUsage.user + _lastCpuUsage.system )
     var total = ( cpuUsage.user + cpuUsage.system )
-    var diff = ( total - prevTotal )
+    var diff = ( total - prevTotal ) + 0.01
 
     var delta = ( now - _lastCpuUsageTime )
-    var limit = ( delta * 1000 ) // microseconds
+    var limit = ( delta * 1000 ) + 0.1 // microseconds to milliseconds
 
-    var pct = String( 100 * ( diff / limit ) ).trim().slice( 0, 6 )
+    var pct = (
+	String( 100 * ( diff / limit ) )
+	.trim()
+	.slice( 0, 6 )
+    )
 
     _lastCpuUsage = cpuUsage
     _lastCpuUsageTime = now

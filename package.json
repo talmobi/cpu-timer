@@ -9,6 +9,9 @@
   "keywords": [
     "cpu-timer"
   ],
+  "files": [
+    "cpu-timer.js"
+  ],
   "author": "talmobi <talmo.christian@gmail.com>",
   "license": "MIT",
   "repository": {

@@ -12,11 +12,11 @@ test( 'api - timer.create()', function ( t ) {
   var initialUsage = init.usage
   var initialAverage = init.average
 
-  // console.log( initialUsage )
-  // console.log( initialAverage )
+  console.log( initialUsage )
+  console.log( initialAverage )
 
-  t.ok( initialUsage > 0 && initialAverage <= 100, 'initial usage OK' )
-  t.ok( initialAverage > 0 && initialAverage <= 100, 'initial average OK' )
+  t.ok( initialUsage >= 0 && initialAverage <= 100, 'initial usage OK' )
+  t.ok( initialAverage >= 0 && initialAverage <= 100, 'initial average OK' )
 
   setTimeout( function () {
     var cpu = timer.cpu()
@@ -32,8 +32,8 @@ test( 'api - timer.setTimeout', function ( t ) {
   t.timeoutAfter( 1000 )
 
   cpuTimer.setTimeout( function ( cpu ) {
-    t.ok( cpu.usage, 'cpu usage OK' )
-    t.ok( cpu.average, 'cpu usage OK' )
+    t.ok( cpu.usage >= 0 && cpu.usage <= 100, 'usage OK' )
+    t.ok( cpu.average >= 0 && cpu.average <= 100, 'average OK' )
   }, 333 )
 })
 
@@ -60,8 +60,8 @@ test( 'api - timer.setInterval', function ( t ) {
 
   var off = cpuTimer.setInterval( function ( cpu ) {
     counter++
-    t.ok( cpu.usage, 'cpu usage OK' )
-    t.ok( cpu.average, 'cpu average OK' )
+    t.ok( cpu.usage >= 0 && cpu.usage <= 100, 'usage OK' )
+    t.ok( cpu.average >= 0 && cpu.average <= 100, 'average OK' )
 
     if ( counter > 1 ) off()
   }, 333 )
