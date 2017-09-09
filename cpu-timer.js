@@ -116,6 +116,8 @@ function createTimer () {
 function createInterval( callback, interval ) {
   var timer = createTimer()
 
+  interval = interval || 1000 // default interval
+
   // return off function
   return safeSetInterval( function () {
     callback( timer.cpu() )
@@ -128,6 +130,8 @@ function createInterval( callback, interval ) {
 
 function createTimeout ( callback, delay ) {
   var timer = createTimer()
+
+  delay = delay || 1000 // default delay
 
   var _timeout = setTimeout( function () {
     callback( timer.cpu() )
